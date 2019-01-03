@@ -1,8 +1,11 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <vector>
+#include <sstream>
 using namespace std;
 
+// Introducing data types
 int data_types()
 {	/* This focuses on introducing the different data types offered
 	by c++, we also use a set precision for the decimal counts. */
@@ -20,7 +23,9 @@ int data_types()
 	return 0;
 	// cin -> 3 12345678912345 a 334.23 14049.30493
 }
+// ----------------------------------------
 
+// Introducing if-else statements
 int conditional_statements_with_arrays()
 {
 	int n;
@@ -36,7 +41,10 @@ int conditional_statements_with_arrays()
 	}
 	return 0;
 }
+// ----------------------------------------
 
+
+// Introducing basic for loops
 int for_loop()
 {
 	string lst[11] = {"even", "odd", "one", "two", "three", 
@@ -56,8 +64,12 @@ int for_loop()
 	}
 	return 0;
 }
+// ----------------------------------------
 
-int max_of_four(int a, int b, int c, int d) {
+
+//  Finding the greatest number of four
+int max_of_four(int a, int b, int c, int d) 
+{
     return max(max(a,b),max(c,d));
 }
 
@@ -68,9 +80,62 @@ int greatest_of_four_integers() {
     cout << ans << endl;
     return 0;
 }
+// ----------------------------------------
+
+
+// Handling string inputs with stringstream
+int stringstreams1()
+{
+	string mystr;
+	int a,b,c;
+	getline(cin,mystr);
+	stringstream(mystr) >> a >> b >> c;
+	cout << a << endl << b << endl << c << endl;
+	return 0;
+}
+
+vector<int> parseInts(string str) 
+{
+	stringstream ss(str);
+	vector<int> vec;
+	char commas;
+	int tmp;
+	while (ss >> tmp) {
+		vec.push_back(tmp);
+		ss >> commas;
+	}
+	return vec;
+}
+
+int stringstream2()
+{
+	string str;
+	getline(cin,str);
+	vector<int> result = parseInts(str);
+	for (int i = 0; i < result.size(); i++) {
+		cout << result[i] << "\n";
+	}
+	return 0;
+}
+// ----------------------------------------
+
+
+// Introducing pointer
+// void is used for a func that doesn't return anything
+void update(int *pa, int *pb)			
+{
+	int a = *pa;
+	int b = *pb;
+	*pa = a + b;
+	*pb = abs(a - b);
+}
 
 int main()
 {
-	greatest_of_four_integers();
+	int a, b;
+	int *pa = &a, *pb = &b;
+	cin >> a >> b;
+	update(pa,pb);
+	cout << a << endl << b << endl;
 	return 0;
 }
