@@ -3,6 +3,9 @@
 #include <cstdlib>
 #include <vector>
 #include <sstream>
+#include <cmath>
+#include <cstdio>
+#include <algorithm>
 using namespace std;
 
 // Introducing data types
@@ -122,7 +125,7 @@ int stringstream2()
 
 // Introducing pointer
 // void is used for a func that doesn't return anything
-void update(int *pa, int *pb)			
+void update(int *pa, int *pb)	// initializing pointers
 {
 	int a = *pa;
 	int b = *pb;
@@ -130,12 +133,97 @@ void update(int *pa, int *pb)
 	*pb = abs(a - b);
 }
 
-int main()
-{
-	int a, b;
-	int *pa = &a, *pb = &b;
+int pointers()
+{								// *  = value of pointer | pointed by
+	int a, b;					// &  = reference | address of
+	int *pa = &a, *pb = &b;		// *x = initializing pointer
 	cin >> a >> b;
 	update(pa,pb);
 	cout << a << endl << b << endl;
 	return 0;
 }
+
+// Introducing Arrays
+int arrays()
+{
+	int len;
+	cin >> len;
+	int arr[len];
+	for (int i = 0; i < len; i++) {
+		cin >> arr[i];
+	}
+	for (int i = len - 1; i >= 0; i--) {
+		cout << arr[i] << " ";
+	}
+	return 0;
+}
+
+int arrays_output()
+{
+	arrays();
+	return 0;
+}
+
+// String Operations
+int string_ops()
+{
+	string a, b;
+	char a_1st, b_1st;
+	cin >> a >> b;
+	cout << a.size() << " " << b.size() << endl;
+	cout << a + b << endl;
+	swap(a[0],b[0]);
+	cout << a << " " << b << endl;
+	return 0;
+}
+
+// Contructing structs
+struct Student1 {
+	int age;
+	string first_name, last_name;
+	int standard;
+};
+
+class Student2 {
+	private:
+		int age, standard;
+		string first_name, last_name;
+	public:
+		void set_age(int a) {
+			age = a;
+		}
+		int get_age() {return age;}
+
+		void set_first_name(string fn) {
+			first_name = fn;
+		}
+		string get_first_name() {return first_name;}	
+		
+		void set_last_name(string ln) {
+			last_name = ln;
+		}
+		string get_last_name() {return last_name;}
+		
+		void set_standard(int s) {
+			standard = s;
+		}
+		int get_standard() {return standard;}
+
+		string to_string() {
+			stringstream ss;
+			char c = ',';
+			ss << age << c << first_name << c << last_name 
+			<< c << standard;
+			return ss.str();
+		}
+};
+
+class Student {
+	private:
+
+
+	public:
+		void input() {
+			
+		}
+};
