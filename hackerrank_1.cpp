@@ -26,7 +26,7 @@ int data_types()
 	return 0;
 	// cin -> 3 12345678912345 a 334.23 14049.30493
 }
-// ----------------------------------------
+/* -----------------------------------------------------------------*/
 
 // Introducing if-else statements
 int conditional_statements_with_arrays()
@@ -44,7 +44,7 @@ int conditional_statements_with_arrays()
 	}
 	return 0;
 }
-// ----------------------------------------
+/* -----------------------------------------------------------------*/
 
 
 // Introducing basic for loops
@@ -67,7 +67,7 @@ int for_loop()
 	}
 	return 0;
 }
-// ----------------------------------------
+/* -----------------------------------------------------------------*/
 
 
 //  Finding the greatest number of four
@@ -83,7 +83,7 @@ int greatest_of_four_integers() {
     cout << ans << endl;
     return 0;
 }
-// ----------------------------------------
+/* -----------------------------------------------------------------*/
 
 
 // Handling string inputs with stringstream
@@ -120,11 +120,40 @@ int stringstream2()
 	}
 	return 0;
 }
-// ----------------------------------------
+/* -----------------------------------------------------------------*/
 
 
-// Introducing pointer
-// void is used for a func that doesn't return anything
+// Introducing Pointer
+// off topic: void is used for a func that doesn't return anything
+// 			  void type - typeless
+/* 
+pointers - integers that store memory address of a value
+*/
+
+// Introducing Memory Concepts
+/*  
+Stack - stores automatic variable, faster than heap and free store
+		, b/c memory allocation invovles only pointer increment. Objects
+		are constructed immediately after memory is allocated and
+		destroyed immediately before memory is deallocated.
+	  - Includes all local variables
+Free store & Heap - dynamic memory areas, allocated by new/delete
+	Operators:
+		* new - used to allocate storage space
+			  - returns the address of a the newly initialized memory,
+			  	to a pointer variable. Thus... 'char *p = new char[10]'
+		* delete - used to delete object, must be used to avoid
+					undesired memory leaks.
+		https://www.geeksforgeeks.org/new-and-delete-operators-in-cpp-for-dynamic-memory/ 
+
+When typing 'int a' or 'char b', memory is automatically allocated.
+vs.
+Dynamically allocated memory is like 'int *p = new int[10]'; here we
+initialize an array of memory or block of memory and it then becomes 
+your responsability to deallocate the memory when no longer needed.
+
+
+*/
 void update(int *pa, int *pb)	// initializing pointers
 {
 	int a = *pa;
@@ -136,12 +165,14 @@ void update(int *pa, int *pb)	// initializing pointers
 int pointers()
 {								// *  = value of pointer | pointed by
 	int a, b;					// &  = reference | address of
-	int *pa = &a, *pb = &b;		// *x = initializing pointer
+	int *pa = &a, *pb = &b;		// dtype *x = initializing pointer
 	cin >> a >> b;
 	update(pa,pb);
 	cout << a << endl << b << endl;
 	return 0;
 }
+/* -----------------------------------------------------------------*/
+
 
 // Introducing Arrays
 int arrays()
@@ -220,10 +251,65 @@ class Student2 {
 
 class Student {
 	private:
-
+		int arr[4];
+		int score;
 
 	public:
 		void input() {
-			
+			for (int i = 0; i < 4; i++) {
+				cin >> arr[i];
+			}
+		}
+		int caculateTotalScore() {
+			score = 0;
+			for (int i = 0; i < 4; i++) {
+				score = score + arr[i];
+			}
+			return score;
 		}
 };
+
+/* Multi-Dimension Arrays in C++
+We use an array of arrays, but in C++, this consists of an array of 
+pointers pointing to other arrays.
+
+This would be a regular array...   int arr[50]
+
+Yet this would be with pointers... int* arr = new int[50]
+
+Both are the same, meaning both 'arr' are just pointers to stored data.
+If you were to print them out, then you would get an address for both.
+
+For a two dimensional arrays...    int** arr = new int*[50]
+
+
+*/
+int variable_sized_arrs()
+{
+	int n,q;
+	cin >> n >> q;
+	int** arr2D = new int*[n];				// Initialize 2D Array
+	for (int i = 0; i < n; i++) {
+		int len;
+		cin >> len;
+		int* arr1D = new int[len];
+		for (int j = 0; j < len; j++) {
+			int vars;
+			cin >> arr1D[vars];				// Initialize 1D Array	
+		}
+		arr2D[i] = arr1D;
+	}
+
+	for (int i = 0; i < q; i++) {			// 
+		int x, y;
+		cin >> x >> y;
+		cout << arr2D[x][y] << endl;
+	}
+
+	for (int i = 0; i < n; i++) {
+		delete[] arr2D[i];
+	}
+	delete[] arr2D;
+
+	return 0;
+}
