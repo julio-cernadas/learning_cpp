@@ -194,6 +194,8 @@ int arrays_output()
 	arrays();
 	return 0;
 }
+/* -----------------------------------------------------------------*/
+
 
 // String Operations
 int string_ops()
@@ -207,14 +209,34 @@ int string_ops()
 	cout << a << " " << b << endl;
 	return 0;
 }
+/* -----------------------------------------------------------------*/
 
-// Contructing structs
+
+/* 	Structs vs. Classes
+- The main difference is that classes are private by default, while
+structs are public by default.
+- structs are used, but are there to maintain c backwards compatability.
+
+	More on Classes
+- Private vs Public Members: 
+	* Private members cannot be accessed from the object.
+	* Public members can be accessed.
+	* To access private members, we need to have a function within the 
+	class to access these members; setter and getters.
+- 
+
+
+
+*/
+
+// Structs
 struct Student1 {
 	int age;
 	string first_name, last_name;
 	int standard;
 };
 
+// Classes
 class Student2 {
 	private:
 		int age, standard;
@@ -269,6 +291,21 @@ class Student {
 		}
 };
 
+// Constructors
+class Student3 {
+	public:
+		int score, gpa;
+		Student3(int s, int g) {		// Constructor
+			score = s;					// Allows for parameters too!
+			gpa = g;
+		}
+		void Print() {
+			cout << score << " " << gpa << endl;
+		}
+};
+/* -----------------------------------------------------------------*/
+
+
 /* Multi-Dimension Arrays in C++
 We use an array of arrays, but in C++, this consists of an array of 
 pointers pointing to other arrays.
@@ -305,7 +342,10 @@ int variable_sized_arrs()
 		cin >> x >> y;
 		cout << arr2D[x][y] << endl;
 	}
-
+	// You have to delete the 1D array first, in order to not have a
+	// memory leak caused by deleting the 2D array first, which would
+	// delete only the array containing pointers but not the 1D arrays
+	// left in memory, leaving them unobtainable -> memory leak.
 	for (int i = 0; i < n; i++) {
 		delete[] arr2D[i];
 	}
@@ -313,3 +353,92 @@ int variable_sized_arrs()
 
 	return 0;
 }
+
+/* 	References
+ex. int& ref: not to be confused with address of...
+These are very similar to pointers but not as complex
+
+References can be thought of as aliases for memory... for example:
+int a = 5;
+int& ref = a;
+cout << ref;
+
+output -- 5
+--------------------------
+void Increment(int& value) 	// This is like setting 'int& value = a'
+{
+	value++
+}
+
+int main() 
+{
+	int a = 5;
+	Increment(a);
+	cout << a;
+}
+
+output -- 6
+-------------------------
+*/ 
+
+class Box {
+	private: 
+		int length, breadth, height;
+	public:
+		Box () {
+			length = 0;
+			breadth = 0;
+			height = 0;
+		}
+		Box(int l, int b, int h) {
+			length = l;
+			breadth = b;
+			height = h;
+		}
+		Box(const Box& B) {
+			length = B.length;
+			breadth = B.breadth;
+			height = B.height;
+		}
+
+		int getLength() {
+			return length;
+		}
+		int getBreadth() {
+			return breadth;
+		}
+		int getHeight() {
+			return height;
+		}
+
+		long long CalculateVolume() {
+			return (long long) length * breadth * height;
+		}
+};
+/* -----------------------------------------------------------------*/
+
+
+/*	OOP Concepts - Inheritance
+
+
+
+
+*/
+
+class Entity {
+	public:
+		float X, Y;
+		void Move(float xa, float ya) {
+			X += xa;
+			Y += ya;
+		}
+};
+
+// Player inherited from Entity
+class Player : public Entity {
+	public:
+		const char* Name;
+		void PrintName() {
+			cout << Name << endl;
+		}
+};
