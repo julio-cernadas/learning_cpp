@@ -31,7 +31,11 @@ int array_test()
 {
     int* arr[5];
     for (int i = 0; i != 5; ++i) {
-        std::cout << arr[i] << std::endl;
+        int x = i;
+        arr[i] = &x;
+        std::cout << "POINTING TO: " << *arr[i] << std::endl;       
+        std::cout << "VALUE      : " << arr[i] << std::endl;
+        std::cout << "ADDRESS    : " << &arr[i] << std::endl;      
     }
     return 0;
 }
