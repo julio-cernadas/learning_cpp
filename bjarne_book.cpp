@@ -42,6 +42,13 @@ int array_test()
 
 int main() 
 {
-    array_test();
+    int v[] = {0,1,2,3,4,5,6,7,8,9};
+    for (int& x : v) {                  // Here we use a reference to x
+        std::cout << x;                 // This allows us to actually increment x without
+        ++x;                            // having to make a copy. We increment the actual 
+    }                                   // variable in the memory location.
+    for (int x = 0; x != 10; ++x) {
+        std::cout << v[x] << std::endl;
+    }
     return 0;
 }
