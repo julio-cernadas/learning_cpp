@@ -52,6 +52,10 @@ void referencing_with_for_loop()
     }
 }
 
+void Print(int value)
+{
+    std::cout << value << std::endl;
+}
 
 
 int main() 
@@ -59,3 +63,4 @@ int main()
     
     return 0;
 }
+
