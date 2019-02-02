@@ -121,10 +121,33 @@ Entry read_entry(std::istream& is)
     return {s,i};
 }
 
-int main() 
+void using_Entry() 
 {
     Entry e = read_entry(std::cin);
     std::cout << "{ " << e.name << "," << e.value << " } \n";
+}
+
+class Vector1 {
+private:
+    double* elem;                                   // elem points to an array of sz doubles
+    int sz;
+public:
+    Vector1(int s) 
+        :   elem{new double[s]}, sz{s}              // constructor: acquire resources
+    {
+        for (int i=0; i!=s; ++i)                    // initialize elements
+            elem[i]=0;
+    }
+    ~Vector1() { delete[] elem; }                    // destructor: release resources
+
+    double& operator[](int i);
+    int size() const;
+};
+
+
+int main() 
+{
+    using_Entry();
     return 0;
 }
 
