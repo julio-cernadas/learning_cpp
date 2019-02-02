@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 struct Vector                           //  Declaring the Struct named 'Vector'
 {                                       //  Declaring variables within it.
@@ -58,9 +59,72 @@ void Print(int value)
 }
 
 
+template<typename T>
+T Printing_with_template(T value)
+{
+    return value;
+}
+
+template<typename T>
+class StudentRecord {
+private:
+    const int size = 5;
+    T grade;
+    int studentId;
+public:
+    StudentRecord(T input);
+    void setId(int idIn);
+    void printGrades();
+};
+
+template<typename T>
+StudentRecord<T>::StudentRecord(T input)
+{
+    grade = input;
+}
+
+template<typename T>
+void StudentRecord<T>::setId(int idIn)
+{
+    studentId = idIn;
+}
+
+template<typename T>
+void StudentRecord<T>::printGrades()
+{
+    std::cout << studentId << ": " << grade;
+}
+
+void Vectors_n_Iterators()
+{
+    std::vector<int> vectorInts;
+    std::vector<int>::iterator it;
+    std::cout << "vectorInts has " << vectorInts.size() << " elements \n";
+    std::cout << "\nAdding four elements to vector \n";
+    vectorInts.assign(4,3);
+    std::cout << "vectorInts has " << vectorInts.size() << " elements \n";
+    std::cout << "Elements in vectors: ";
+    for (it = vectorInts.begin(); it != vectorInts.end(); ++it) 
+        std::cout << *it << " ";
+}
+
+struct Entry {
+    std::string name;
+    int value;
+};
+
+Entry read_entry(std::istream& is)
+{
+    std::string s;
+    int i;
+    is >> s >> i;
+    return {s,i};
+}
+
 int main() 
 {
-    
+    Entry e = read_entry(std::cin);
+    std::cout << "{ " << e.name << "," << e.value << " } \n";
     return 0;
 }
 
