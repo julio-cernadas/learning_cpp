@@ -1,13 +1,13 @@
 #include <iostream>
 #include <vector>
 
-struct Vector                           //  Declaring the Struct named 'Vector'
+struct Vector2                           //  Declaring the Struct named 'Vector'
 {                                       //  Declaring variables within it.
     int size;                    
     double* elmt;                       
 };
 
-void vector_init(Vector& v, int s)      //  Declaring function 'vector_init'
+void vector_init(Vector2& v, int s)      //  Declaring function 'vector_init'
 {                                       //  Takes in a reference, which doesn't occupy memory..
     v.elmt = new double[s];             //  they simply reference another variables, like an alias...   
     v.size = s;                         //  we aren't making a copy, a ref only exists in our source code!
@@ -15,7 +15,7 @@ void vector_init(Vector& v, int s)      //  Declaring function 'vector_init'
 
 double read_and_sum(int s)
 {
-    Vector v;                                            
+    Vector2 v;                                            
     vector_init(v,s);                   // Since vector_init takes a reference, we can just throw the 'v' in!
     for (int i = 0; i != s; ++i) {
         std::cin >> v.elmt[i];
@@ -138,16 +138,59 @@ public:
         for (int i=0; i!=s; ++i)                    // initialize elements
             elem[i]=0;
     }
-    ~Vector1() { delete[] elem; }                    // destructor: release resources
+    ~Vector1() { delete[] elem; }                   // destructor: release resources
 
     double& operator[](int i);
     int size() const;
 };
 
+// Abstract classes and Virtual Functions
+class Enemy {                               // Class with Virtual function
+public:
+    virtual void attack()                   // Virtual function: the right to be overwriten
+    {                                       // Allows its derived classes to override it
+        std::cout << "i am the enemy class \n";
+    }
+};                                       
+                                            // Polymorphic Type:
+class Enemy2 {                              // Abstract Class Example | Interface
+public:
+    virtual void attack() = 0;              // Pure Virtual function: obligation to be overwritten
+};                                          // Must be overwritten by derived classes
+        
+class Ninja: public Enemy {         
+public:
+    void attack() override
+    {
+        std::cout << "ninja attack \n";
+    }
+};
+
+class Monster: public Enemy {};
+
+class Dragon: public Enemy2 {
+public:
+    void attack() override
+    {
+        std::cout << "i was forced to do this \n";
+    }
+};
+
+void Implementation_of_Abstract_classes()
+{
+    Ninja n;
+    Monster m;
+    Dragon d;
+    Enemy* enemy1 = &n;
+    Enemy* enemy2 = &m;
+    Enemy2* enemy3 = &d;    // Note: There cant be objects of an abstract class, we use pointers
+    enemy1->attack();
+    enemy2->attack();
+    enemy3->attack();   
+}
 
 int main() 
 {
-    using_Entry();
+    Implementation_of_Abstract_classes();
     return 0;
 }
-
