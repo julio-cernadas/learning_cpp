@@ -186,8 +186,20 @@ void Implementation_of_Abstract_classes()
     Enemy2* enemy3 = &d;    // Note: There cant be objects of an abstract class, we use pointers
     enemy1->attack();
     enemy2->attack();
-    enemy3->attack();   
+    enemy3->attack();
 }
+
+/*
+Proper Inheritance:
+- Is when any operation that can be invoked on a derived-class object via a base class pointer 
+or reference can behave identically if we replace that base-class pointer or reference with
+a corresponding derived-class one.
+- 
+- 
+
+
+*/
+
 
 int main() 
 {
