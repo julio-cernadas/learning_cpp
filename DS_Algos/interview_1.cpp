@@ -38,13 +38,14 @@ void jumping_on_the_clouds()
     while (ss >> num) {
         clouds.push_back(num);
     }
-    for (int i = 0; i != clouds.size(); ++i) {
-        std::cout << i;
-    }
+    int count = 0;
+    for (int i = 0; i < n-2; ++i, ++count) {
+        if (clouds[i+2] == 0) {
+            ++i;
 }
 
 
 int main() 
 {
-    jumping_on_the_clouds();
+    
 }
