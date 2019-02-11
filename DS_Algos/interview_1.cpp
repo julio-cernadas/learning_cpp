@@ -62,7 +62,27 @@ void counting_valleys()
 }
 
 
+void Array_2D_DS()
+{
+    int size, num, temp;
+    std::cin >> size;
+    int arr[size];
+    for (int i = 0; i != size; ++i) {
+        std::cin >> num;
+        arr[i] = num;
+    }
+    for (int i = 0; i != (size/2); ++i) {
+        int temp = arr[i];
+        arr[i] = arr[(size - 1) - i];
+        arr[(size - 1) - i] = temp;
+    }
+    for (auto i : arr) {
+        std::cout << i << " ";
+    }
+}
+
+
 int main() 
 {
-    counting_valleys();
+    Array_2D_DS();
 }
