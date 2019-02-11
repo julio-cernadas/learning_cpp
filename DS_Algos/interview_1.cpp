@@ -42,10 +42,27 @@ void jumping_on_the_clouds()
     for (int i = 0; i < n-2; ++i, ++count) {
         if (clouds[i+2] == 0) {
             ++i;
+        }
+    }
+}
+
+void counting_valleys() 
+{
+    int n, v_count = 0, sealevel = 0;
+    std::string s;
+    std::cin >> n;
+    std::cin >> s;
+    for (auto step : s) {
+        std::cout << step << std::endl;
+        if (step == 'U') {++sealevel;}
+        if (step == 'D') {--sealevel;}
+        if (sealevel == 0 && step == 'U') {++v_count;}
+    }
+    std::cout << v_count;
 }
 
 
 int main() 
 {
-    
+    counting_valleys();
 }
