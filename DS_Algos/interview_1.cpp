@@ -3,6 +3,11 @@
 #include<vector>
 #include<unordered_map>
 
+using std::cout;
+using std::cin;
+using std::string;
+using std::vector;
+
 void sock_merchant_map()                // Using unordered_map
 {
     int n, num;                         // number of sock in pile
@@ -25,7 +30,7 @@ void sock_merchant_map()                // Using unordered_map
     }
     std::cout << count;
 }
-
+;
 void jumping_on_the_clouds()       
 {
     int n,num;                          // number of clouds
@@ -81,8 +86,22 @@ void Array_2D_DS()
     }
 }
 
+void left_rotation() 
+{
+    int n, d, temp;
+    cin >> n >> d;
+    vector<int> vec;
+    for (int i = 0; i != n; ++i) {
+        cin >> temp;
+        vec.push_back(temp);
+    }
+    for (int i = 0; i != n; ++ i) {
+        cout << vec[(i+d)%n] << " ";
+    }
+}
+
 
 int main() 
 {
-    Array_2D_DS();
+    left_rotation();
 }
