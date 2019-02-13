@@ -2,11 +2,9 @@
 #include<sstream>
 #include<vector>
 #include<unordered_map>
+#include<algorithm>
 
-using std::cout;
-using std::cin;
-using std::string;
-using std::vector;
+using std::cout, std::cin, std::string, std::vector;
 
 void sock_merchant_map()                // Using unordered_map
 {
@@ -100,8 +98,31 @@ void left_rotation()
     }
 }
 
+void sparse_strings()
+{
+    int n, q, cnt;
+    string tmp;
+    vector<string> strings;
+    vector<string> queries;
+    cin >> n;
+    for (int i = 0; i != n; ++i) {
+        cin >> tmp;
+        strings.push_back(tmp);
+    }
+    cin >> q;
+    for (int i = 0; i != q; ++i) {
+        cin >> tmp;
+        queries.push_back(tmp);
+    }
+    for (auto word : queries) {
+        cout << std::count(strings.begin(), strings.end(), word) << "\n";
+    }
+}
+
+
 
 int main() 
 {
-    left_rotation();
+    sparse_strings();
+    return 0;
 }
