@@ -119,10 +119,23 @@ void sparse_strings()
     }
 }
 
+void print_elements()
+{
+    int n, tmp;
+    vector<int> vec;
+    cin >> n;
+    for (int i = 0; i != n; ++i) {
+        cin >> tmp;
+        vec.push_back(tmp);
+    }
+    for (auto num : vec) {
+        cout << num << "\n";
+    }
+}
 
 
 int main() 
 {
-    sparse_strings();
+    print_elements();
     return 0;
 }
