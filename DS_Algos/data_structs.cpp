@@ -133,9 +133,92 @@ void print_elements()
     }
 }
 
+/*                                  Linked List                                     */
+
+struct node                           
+{
+    int data;
+    node* next;
+};
+
+class linked_list
+{
+    node* head
+    int length;
+    linked_list():
+        head {NULL}, tail {NULL} {}
+};
+
+void createnode(int val)
+{
+    node* temp = new node;
+    temp->data = val;
+    temp->next = NULL;
+    if (head == NULL) {
+        head = temp;
+        tail = temp;
+        temp = NULL;
+    }
+    else {
+        tail->next = temp;
+        tail = temp;
+    }
+}
+
+void display_list()
+{
+    node* temp = new node;
+    temp = head;
+    while ()
+}
+
+
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);
+};
+
+ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2)
+{
+    // Result 
+    ListNode *result;                             
+    ListNode *dump = new ListNode((int)0);
+    ListNode **sum = &result;
+    int carry = 0;
+    int now = 0;
+    while(l1 != dump || l2 != dump || carry != 0)
+    {
+        // grabs the ones place number
+        now = (l1->val + l2->val + carry)%10;
+        // grabs the tens place number to be carried, if any...
+        carry = (l1->val + l2->val + carry)/10;
+        // the value pointed by sum (result ptr) now points to a ListNode(7,then 0, then 8)
+        *sum = new ListNode(now); // this result's next member will be accessed below
+        // (the address of the value pointed to by sum, result ptr)->next
+        sum = &(*sum)->next;    
+        // proceeds to next numbers in linked list for while loop
+        if (l2->next == NULL)
+            l2 = dump;
+        else l2 = l2->next;
+        if (l1->next == NULL)
+            l1 = dump;
+        else l1 = l1->next;
+    }
+    delete dump;
+    return result;
+}
+
+
+
+
 
 int main() 
 {
-    print_elements();
     return 0;
 }
