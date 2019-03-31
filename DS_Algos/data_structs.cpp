@@ -262,7 +262,6 @@ public:
     ~linkedList();
 };
 
-
 template<typename T>
 linkedList<T>::linkedList(): first(nullptr), last(nullptr), count(0) {}
 
@@ -395,9 +394,40 @@ const linkedList<T>& linkedList<T>::operator=(const linkedList<T>& otherList)
 }
 // ____________________________________________________________________________
 
+struct ListNode {
+        int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+// Merge two linked lists
+class Solution {
+public:
+    ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
+        ListNode temp(INT_MIN);
+        
+        // Pointer = Address of Temp
+        ListNode *tail = &temp;
+        
+        while (l1 && l2) {
+            if (l1->val < l2->val) {
+                tail->next = l1;
+                std::cout << "L1: " << l1->val <<"\n";
+                l1 = l1->next;
+            } else {
+                tail->next = l2;
+                std::cout << "L2: " << l2->val <<"\n";
+                l2 = l2->next;
+            }
+            tail = tail->next;
+        }
+
+        tail->next = (l1 ? l1 : l2);
+        return temp.next;
+    }
+};
 
 int main() 
 {
-
     return 0;
 }
