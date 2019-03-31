@@ -262,6 +262,7 @@ public:
     ~linkedList();
 };
 
+
 template<typename T>
 linkedList<T>::linkedList(): first(nullptr), last(nullptr), count(0) {}
 
