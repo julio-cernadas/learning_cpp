@@ -233,7 +233,6 @@ bool linkedListIterator<T>::operator!=(const linkedListIterator<T>& right) const
 }
 // _____________________________________________________________________________
 
-
 // Linked List Class __________________________________________________________
 template<typename T>
 class linkedList {
