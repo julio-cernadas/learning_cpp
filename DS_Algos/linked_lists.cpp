@@ -252,7 +252,7 @@ public:
     void insertFirst(const T& newItem);
     void insertLast(const T& newItem);
     void deleteNode(const T& deleteItem);
-}
+};
 
 template<typename T>
 bool unorderedLinkedList::search(const T& searchItem) const
@@ -351,7 +351,31 @@ void unorderedLinkedList::deleteNode(const T& deleteItem)
 
 /* ________________________________________________________________________ */
 /*                            ordered linked list                           */
+template<typename T>
+class orderedLinkedList: public linkedList<T> {
+public:
+    bool search(const T& searchItem) const;
+    void insert(const T& newItem);
+    void insertFirst(const T& newItem);
+    void insertLast(const T& newItem);
+    void deletedNode(const T& deleteItem);
+};
 
+template<typename T>
+bool orderedLinkedList::search(const T& searchItem) const
+{
+    bool found = false;
+    node<T>* current = first;
+    while (current != nullptr && !found) {
+        if (current->info >= searchItem)
+            found = true;
+        else
+            current = current->link;
+    }
+    if (found) 
+        found = (current->info == searchItem);
+    return found;
+}
 
 
 
