@@ -69,11 +69,12 @@ bool linkedListIterator<T>::operator!=(const linkedListIterator<T>& right) const
 /*                              linked list                                 */
 template<typename T>
 class linkedList {
-protected:
-    int count;
-    node<T> *first, *last;
 private:
     void copyList(const linkedList<T>& otherList);
+protected:
+    int count;
+    node<T>* first;
+    node<T>* last;
 public:
     const linkedList<T>& operator=(const linkedList<T>&);
     void initializeList();
@@ -83,8 +84,8 @@ public:
     void destroyList();
     T front() const;
     T back() const;
-    virtual bool search(const T& searchItem) const =0;
-    virtual bool insertFirst(const T& newItem) = 0;
+    virtual bool search(const T& searchItem) const = 0;
+    virtual void insertFirst(const T& newItem) = 0;
     virtual void insertLast(const T& newItem) = 0;
     virtual void deleteNode(const T& deleteItem) = 0;
     linkedListIterator<T> begin();
@@ -245,9 +246,12 @@ linkedList<T>::~linkedList()
 
 /* ________________________________________________________________________ */
 /*                          unordered linked list                           */
-template<typename T>
+template<typename T> 
 class unorderedLinkedList: public linkedList<T> {
 public:
+    node<T>* first = this->first;
+    node<T>* last  = this->last;
+    int count = this->count;
     bool search(const T& searchItem) const;
     void insertFirst(const T& newItem);
     void insertLast(const T& newItem);
@@ -255,7 +259,7 @@ public:
 };
 
 template<typename T>
-bool unorderedLinkedList::search(const T& searchItem) const
+bool unorderedLinkedList<T>::search(const T& searchItem) const
 {
     node<T>* current;
     current = first;
@@ -271,7 +275,7 @@ bool unorderedLinkedList::search(const T& searchItem) const
 }
 
 template<typename T>
-void unorderedLinkedList::insertFirst(const T& newItem)
+void unorderedLinkedList<T>::insertFirst(const T& newItem)
 {
     node<T>* newNode = new node<T>;
     newNode->info = newItem;
@@ -283,7 +287,7 @@ void unorderedLinkedList::insertFirst(const T& newItem)
 }
 
 template<typename T>
-void unorderedLinkedList::insertLast(const T& newItem)
+void unorderedLinkedList<T>::insertLast(const T& newItem)
 {
     node<T>* newNode = new node<T>;
     newNode->info = newItem;
@@ -291,7 +295,7 @@ void unorderedLinkedList::insertLast(const T& newItem)
     if (first == nullptr) {         // If list is empty
         first = newNode;
         last  = newNode;
-        count++
+        count++;
     } 
     else {                        // Else the list not empty
         last->link = newNode;
@@ -301,7 +305,7 @@ void unorderedLinkedList::insertLast(const T& newItem)
 }
 
 template<typename T>
-void unorderedLinkedList::deleteNode(const T& deleteItem)
+void unorderedLinkedList<T>::deleteNode(const T& deleteItem)
 {
     node<T>* current;               // ptr to traverse the list  
     node<T>* trailCurrent;          // ptr just before current
@@ -354,13 +358,21 @@ void unorderedLinkedList::deleteNode(const T& deleteItem)
 template<typename T>
 class orderedLinkedList: public linkedList<T> {
 public:
+    using linkedList<T>::first;
+    using linkedList<T>::last;
+    using linkedList<T>::count;
+    // node<T>* first = this->first;
+    // node<T>* last  = this->last;
+    // int count = this->count;
     bool search(const T& searchItem) const;
     void insert(const T& newItem);
-    void deletedNode(const T& deleteItem);
+    void insertFirst(const T& newItem);
+    void insertLast(const T& newItem);
+    void deleteNode(const T& deleteItem);
 };
 
 template<typename T>
-bool orderedLinkedList::search(const T& searchItem) const
+bool orderedLinkedList<T>::search(const T& searchItem) const
 {
     bool found = false;
     node<T>* current = first;
@@ -376,14 +388,14 @@ bool orderedLinkedList::search(const T& searchItem) const
 }
 
 template<typename T>
-void orderedLinkedList::insertFirst(const T& newItem)
+void orderedLinkedList<T>::insert(const T& newItem)
 {
     node<T>* current;
     node<T>* trailCurrent = nullptr;
-    node<T> newNode = new node<T>;
+    node<T>* newNode = new node<T>;
     newNode->info = newItem;
     newNode->link = nullptr;
-    
+    bool found;
     if (first == nullptr) {                     // If list is empty...
         first = newNode;
         last  = newNode;
@@ -417,6 +429,18 @@ void orderedLinkedList::insertFirst(const T& newItem)
 }
 
 template<typename T>
+void orderedLinkedList<T>::insertFirst(const T& newItem)
+{
+    insert(newItem);
+}
+
+template<typename T>
+void orderedLinkedList<T>::insertLast(const T& newItem)
+{
+    insert(newItem);
+}
+
+template<typename T>
 void orderedLinkedList<T>::deleteNode(const T& deleteItem) 
 {
     node<T>* current;
@@ -445,7 +469,7 @@ void orderedLinkedList<T>::deleteNode(const T& deleteItem)
                 if (current == first) {
                     first = first->link;
                     if (first == nullptr) {
-                        last == nullptr
+                        last = nullptr;
                     }
                     delete current;
                 }
@@ -454,7 +478,7 @@ void orderedLinkedList<T>::deleteNode(const T& deleteItem)
                     if (current == last) {
                         last = trailCurrent;
                     }
-                    delete currentp
+                    delete current;
                 }
                 count--;
             }
@@ -465,10 +489,17 @@ void orderedLinkedList<T>::deleteNode(const T& deleteItem)
     }
 }
 
-
-
-
 int main() 
 {
+    orderedLinkedList<int> list1, list2;
+    int num;
+    cout << "Enter Numbers Ending with -999: ";
+    cin >> num;
+    while (num != -999) {
+        list1.insert(num);
+        cin >> num;
+    }
+    cout << "\n" << "list1: ";
+    list1.print();
     return 0;
 }
