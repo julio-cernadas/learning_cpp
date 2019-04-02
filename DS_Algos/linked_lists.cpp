@@ -356,8 +356,6 @@ class orderedLinkedList: public linkedList<T> {
 public:
     bool search(const T& searchItem) const;
     void insert(const T& newItem);
-    void insertFirst(const T& newItem);
-    void insertLast(const T& newItem);
     void deletedNode(const T& deleteItem);
 };
 
@@ -377,6 +375,95 @@ bool orderedLinkedList::search(const T& searchItem) const
     return found;
 }
 
+template<typename T>
+void orderedLinkedList::insertFirst(const T& newItem)
+{
+    node<T>* current;
+    node<T>* trailCurrent = nullptr;
+    node<T> newNode = new node<T>;
+    newNode->info = newItem;
+    newNode->link = nullptr;
+    
+    if (first == nullptr) {                     // If list is empty...
+        first = newNode;
+        last  = newNode;
+        count++;
+    }
+    else {                                      // All other cases...
+        current = first;
+        found = false;
+        while (current != nullptr && !found) {  // Traverse til end or found
+            if (current->info >= newItem) {
+                found = true;
+            }
+            else {
+                trailCurrent = current;
+                current = current->link;
+            }
+        }
+        if (current == first) {                 // newItem is smaller than first
+            newNode->link = first;
+            first = newNode;
+            count++;
+        }
+        else {                                  // inserting in middle 
+            trailCurrent->link = newNode;
+            newNode->link = current;
+            if (current == nullptr)             // inserting at end
+                last = newNode;
+            count++;
+        }
+    }
+}
+
+template<typename T>
+void orderedLinkedList<T>::deleteNode(const T& deleteItem) 
+{
+    node<T>* current;
+    node<T>* trailCurrent = nullptr;
+    bool found;
+    if (first == nullptr) {
+        cout << "Empty list" << endl;
+    }
+    else {
+        current = first;
+        found = false;
+        while (current != nullptr && !found) {  // Search the list for item
+            if (current->info >= deleteItem) {  // greater than the deleteItem
+                found = true;
+            }
+            else {
+                trailCurrent = current;
+                current = current->link;
+            }
+        }
+        if (current == nullptr) {               // no result
+            cout << "deleteItem not in list" << endl;
+        }
+        else {
+            if (current->info == deleteItem) {
+                if (current == first) {
+                    first = first->link;
+                    if (first == nullptr) {
+                        last == nullptr
+                    }
+                    delete current;
+                }
+                else {
+                    trailCurrent->link = current->link;
+                    if (current == last) {
+                        last = trailCurrent;
+                    }
+                    delete currentp
+                }
+                count--;
+            }
+            else {
+                cout << "deleteItem not in list" << endl;
+            }
+        }
+    }
+}
 
 
 
