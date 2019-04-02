@@ -94,6 +94,9 @@ public:
     linkedList(const linkedList<T>& otherList);
 
     ~linkedList();
+
+    void reversePrint(node<T>* current) const;
+    void printListReverse();
 };
 
 template<typename T>
@@ -249,9 +252,9 @@ linkedList<T>::~linkedList()
 template<typename T> 
 class unorderedLinkedList: public linkedList<T> {
 public:
-    node<T>* first = this->first;
-    node<T>* last  = this->last;
-    int count = this->count;
+    using linkedList<T>::first;
+    using linkedList<T>::last;
+    using linkedList<T>::count;
     bool search(const T& searchItem) const;
     void insertFirst(const T& newItem);
     void insertLast(const T& newItem);
@@ -361,9 +364,6 @@ public:
     using linkedList<T>::first;
     using linkedList<T>::last;
     using linkedList<T>::count;
-    // node<T>* first = this->first;
-    // node<T>* last  = this->last;
-    // int count = this->count;
     bool search(const T& searchItem) const;
     void insert(const T& newItem);
     void insertFirst(const T& newItem);
@@ -488,7 +488,33 @@ void orderedLinkedList<T>::deleteNode(const T& deleteItem)
         }
     }
 }
+/* ________________________________________________________________________ */
 
+//////////////////////////////////////////////////////////////////////////////
+
+/* ________________________________________________________________________ */
+/*                          Printing Reverse Order                          */
+template<typename T>
+void linkedList<T>::reversePrint(node<T>* current) const
+{
+    if (current != nullptr) {
+        reversePrint(current->link);
+        cout << current->info << " ";
+    }
+}
+
+template<typename T>
+void linkedList<T>::printListReverse()
+{
+    reversePrint(first);
+    cout << endl;
+}
+/* ________________________________________________________________________ */
+
+//////////////////////////////////////////////////////////////////////////////
+
+/* ________________________________________________________________________ */
+/*                                  Main                                    */
 int main() 
 {
     orderedLinkedList<int> list1, list2;
@@ -501,5 +527,13 @@ int main()
     }
     cout << "\n" << "list1: ";
     list1.print();
+    list2 = list1;
+    cout << "Enter number to be deleted: ";
+    cin >> num;
+    list2.deleteNode(num);
+    cout << "Result: ";
+    list2.print();
+    cout << "\n";
+    list2.printListReverse();
     return 0;
 }
