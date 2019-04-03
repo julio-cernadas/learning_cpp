@@ -29,12 +29,12 @@ public:
         return true;
     }
 };
-/* ________________________________________________________________________ */
 
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 //////////////////////////////////////////////////////////////////////////////
-
 /* ________________________________________________________________________ */
 /*                      237. Delete Node in a Linked List                   */
+
 class Solution_237 {
 public:
     void deleteNode(ListNode* node) {
@@ -44,13 +44,13 @@ public:
         delete next;   
     }
 };
-/* ________________________________________________________________________ */
 
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 //////////////////////////////////////////////////////////////////////////////
-
 /* ________________________________________________________________________ */
 /*                      203. Remove Linked List Elements                    */
-class Solution {
+
+class Solution_203 {
 public:
     ListNode* removeElements(ListNode* head, int val) {
         if (head == nullptr){
@@ -70,13 +70,46 @@ public:
         return head;
     }
 };
-/* ________________________________________________________________________ */
 
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 //////////////////////////////////////////////////////////////////////////////
-
 /* ________________________________________________________________________ */
+/*                          206. Reverse Linked List                        */
 
-int main
+// Iterative Method
+class Solution_206_Itr {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev, * curr, * next;
+        prev = nullptr;
+        curr = head;
+        while (curr != nullptr) {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+        return head;
+    }
+};
+
+// Recursive Method
+class Solution_206_Rec {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == nullptr || head -> next == nullptr) {
+            return head;
+        }
+        ListNode* revHead = reverseList(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return revHead;
+    }
+};
+
+
+int main()
 {
     return 0;
 }
