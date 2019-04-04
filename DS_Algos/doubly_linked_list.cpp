@@ -4,6 +4,8 @@
 
 using std::cout, std::cin, std::endl, std::string, std::vector;
 
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+//////////////////////////////////////////////////////////////////////////////
 /* ________________________________________________________________________ */
 /*                                  node                                    */
 template<typename T> 
@@ -61,7 +63,7 @@ doublyLinkedList<T>::doublyLinkedList()
 template<typename T>
 bool doublyLinkedList<T>::isEmptyList() const
 {
-    return (first == nullptr)
+    return (first == nullptr);
 }
 
 // Destroy
@@ -150,6 +152,67 @@ T doublyLinkedList<T>::back() const
     assert(last != nullptr);
     return last->info;
 }
+
+template<typename T>
+void doublyLinkedList<T>::insert(const T& insertItem)
+{
+    node<T>* current, * trailCurrent;
+    node<T>* newNode = new node<T>;
+    newNode->info = insertItem;
+    newNode->next = nullptr;
+    newNode->back = nullptr;
+
+    bool found;
+    if (first == nullptr) {                         // if list is empty
+        first = newNode;
+        last = newNode;
+        count++;
+    }
+    else {
+        found = false;
+        current = first;
+        while (current != nullptr && !found) {      // search list
+            if (current->info >= insertItem) {
+                found = true;
+            }
+            else {
+                trailCurrent = current;
+                current = current->next;
+            }
+        }
+        if (current == first) {                     // inserting before first
+            first->back = newNode;
+            newNode->next = first;
+            first = newNode;
+            count++;
+        }
+        else {
+            if (current != nullptr) {               // inserting between nodes
+                trailCurrent->next = newNode;
+                newNode->back = trailCurrent;
+                newNode->next = current;
+                current->back = newNode;
+            }
+            else {
+                trailCurrent->next = newNode;
+                newNode->back = trailCurrent;
+                last = newNode;
+            }
+            count++;
+        }
+    }
+}
+
+template<typename T>
+void doublyLinkedList<T>::deleteNode(const T& deleteItem) 
+{
+    node<T>* current, * trailCurrent;
+    bool found;
+    if (first == nullptr) {
+        cout << "Empty List" << endl;
+    }
+}
+
 
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 //////////////////////////////////////////////////////////////////////////////
