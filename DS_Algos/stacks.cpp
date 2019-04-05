@@ -23,7 +23,7 @@ public:
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 //////////////////////////////////////////////////////////////////////////////
 /* ________________________________________________________________________ */
-/*                          stack - Derived Class                           */
+/*                  stack (array-version) - Derived Class                   */
 
 template<typename T> 
 class stack: public stackADT<T> {
@@ -148,11 +148,149 @@ const stack<T>& stack<T>::operator=(const stack<T>& otherStack)
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 //////////////////////////////////////////////////////////////////////////////
 /* ________________________________________________________________________ */
+/*              stack (linked list-version) - Derived Class                 */
+
+template<typename T>
+struct node
+{
+    T info;
+    node<T>* link;
+};
+
+template<typename T>
+class linkedStack: public stackADT<T> {
+private: 
+    node<T>* stackTop;
+    void copyStack(const linkedStack<T>& otherStack);
+public: 
+    const linkedStack<T>& operator=(const linkedStack<T>&);
+    bool isEmptyStack() const;
+    bool isFullStack() const;
+    void initializeStack();
+    void push(const T& newItem);
+    T top() const;
+    void pop();
+
+    linkedStack();
+    linkedStack(const linkedStack<T>& otherStack);
+
+    ~linkedStack();
+};
+
+template<typename T>
+linkedStack<T>::linkedStack()
+{
+    stackTop = nullptr;
+}
+
+template<typename T>
+bool linkedStack<T>::isEmptyStack() const
+{
+    return (stackTop == nullptr);
+}
+
+template<typename T>
+bool linkedStack<T>::isFullStack() const
+{
+    return false;
+}
+
+// Reinitializes to an empty state
+template<typename T>
+void linkedStack<T>::initializeStack()
+{
+    node<T>* temp;
+    while (stackTop != nullptr) {
+        temp = stackTop;
+        stackTop = stackTop->link;
+        delete temp;
+    }
+}
+
+template<typename T>
+void linkedStack<T>::push(const T& newElement)
+{
+    node<T>* newNode = new node<T>;
+    newNode->info = newElement;
+    newNode->link = stackTop;
+    stacktop = newNode;
+}
+
+template<typename T>
+T linkedStack<T>::top() const
+{
+    assert(stackTop != nullptr);
+    return stackTop->info;
+}
+
+template<typename T>
+void linkedStack<T>::pop()
+{
+    node<T>* temp;
+    if (stackTop != nullptr) {
+        temp = stackTop;
+        stackTop = stackTop->link;
+        delete temp;
+    }
+    else {
+        cout << "Cannot pop from an empty stack" << endl;
+    }
+}
+
+template<typename T>
+void linkedStack<T>::copyStack(const linkedStack<T>& otherStack)
+{
+    node<T>* newNode, * current, * last;
+    if (stackTop != nullptr) {
+        initializeStack();
+    }
+    if (otherStack.stackTop == nullptr) {
+        stackTop = nullptr;
+    }
+    else {
+        current  = otherStack.stackTop;
+        stackTop = new node<T>; 
+        stackTop->info = current->info;
+        stackTop->link = nullptr;
+        last = stackTop;
+        current = current->link;
+        while (current != nullptr) {
+            newNode = new node<T>;
+            newNode->info = current->info;
+            newNode->link = nullptr;
+            last->link = newNode;
+            last = newNode;
+            current = current->link;
+        } 
+    }
+}
+
+// Copy constructor
+template<typename T>
+linkedStack<T>::linkedStack(const linkedStack<T>& otherStack)
+{
+    stackTop = nullptr;
+    copyStack(otherStack);
+}
+
+// Destructor
+template<typename T>
+linkedStack<T>::~linkedStack()
+{
+    initializeStack();
+}
+
+
+
+
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+//////////////////////////////////////////////////////////////////////////////
+/* ________________________________________________________________________ */
 /*                                  Main                                    */
 
 void testCopyConstructor(stack<int> otherStack);
 
-int main()
+int stack_array_main()
 {
     stack<int> stack1(50);
     stack<int> copyStack1(50);
@@ -171,3 +309,11 @@ int main()
     }
     return 0;
 }
+
+
+
+int main()
+{
+    return 0;
+}
+

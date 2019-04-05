@@ -108,6 +108,52 @@ public:
     }
 };
 
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+//////////////////////////////////////////////////////////////////////////////
+/* ________________________________________________________________________ */
+/*                  19. Remove Nth Node From End of List                    */
+
+class Solution_19 {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        int len = 0;
+        ListNode* curr = head;
+        ListNode* prev = nullptr;
+        ListNode* home = head;
+        while (curr->next != nullptr) {     // Get length
+            len++;
+            prev = curr;
+            curr = curr->next;
+        }
+        if (n == 1 && prev == nullptr) {    // Only one node
+            head = nullptr;
+            delete curr;
+            return head;
+        }
+        if ((len + 1) == n) {               // Removing head
+            head = head->next;
+            prev = nullptr;
+            delete home;
+            return head;
+        }
+        else {                              // Anywhere else
+            len -= n;
+            while (len > 0) {
+                len--;
+                home = home->next;
+            }
+            curr = home->next;
+            home->next = home->next->next;
+            delete curr;
+            return head;
+        }
+    }
+};
+
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+//////////////////////////////////////////////////////////////////////////////
+/* ________________________________________________________________________ */
+/*                                  Main                                    */
 
 int main()
 {
