@@ -31,7 +31,6 @@ private:
     int maxStackSize;
     int stackTop;
     T* list;
-
     void copyStack(const stack<T>& otherStack);
 public:
     const stack<T>& operator=(const stack<T>&);
